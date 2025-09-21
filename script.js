@@ -36,18 +36,21 @@ const titulos = [
 ];
 const textos = [
 	`Abel Makkonen Tesfaye es un cantante canadiense de orígenes etíopes el cual comenzó su carrera musical en 2009 a loos 19 años de forma anonima en YouTube. 
-	Su músicaexplora es escapismo, así como el romance o la melancolia, inspirado usualmente de sus propias experiencias personales.`, 
+	Su música explora el escapismo, así como el romance o la melancolia, inspirado usualmente de sus propias experiencias personales. 
+	Su estilo es variado, caracterizandose por hacer una fusión de generos como el Disco, R&B, Pop, New waveo el Rhythm.`, 
 	
 	`Pulp Fiction`,
 
 	`Los supergenios de la Mesa Cudrada fue una serie de comedia situacional, en la cual los 5 personaje principales leían las cartas de los televidentes y las contestaban de 
-	forma humorística`, 
-	
+	forma humorística, llevando usualmente a mostarar algun sketch.
+	Esta obra fue de las primeras del futuramente famoso Roberto Gómez Bolaños, la cual le dejo empezar a hacerse un lugar en la televisión`
+
 	`El Popol Vuh es una recopilación de narraciones míticas, legendarias e históricas de el pueblo K’iche’, siendo así un libro sagrado en la cultura maya. 
 	El libro conserva gran parte de la sabiduría y de las tradiciones mayas en aspectos tales como religión, astrología, o mitología, lo cual le ha otorgado gran valor, tanto 
-	histórico como espiritual.`, 
+	en un punto de vista histórico como espiritual. 
+	La versión bilingüe actual es un trabajo que conserva los escritos originales de un autor indigena anonimo.`, 
 
-	`Bob Marley`, 
+	`Bob Marley fue un musico y exponente mas conocido, así ncomo rpresentante del reggae.`, 
 
 	`El man es Germán es una serie humorística que sigue las situaciones diarias de su protagonista punketo (aficionado al punk) Germán Quintero junto a su familia y amigos, 
 	dando un vistazo de aspectos estereotípicos de los colombianos promedio como el rebusque o la solidaridad`,
