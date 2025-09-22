@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8" />
-    <title>Scrollytelling básico</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-    <link href="estilo.css" rel="stylesheet" />
-<script src="script.js"></script>
+    <meta charset='utf-8' />
+    <title>Storytelling en Mapbox</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="icon" type="image/x-icon"
+        href="https://raw.githubusercontent.com/mapbox/assembly/publisher-staging/src/svgs/mapbox.svg">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://cdn.jsdelivr.net/npm/mapbox-gl-globe-minimap@1.2.0/dist/bundle.js"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+    <link href="./estilo.css" rel="stylesheet" />
+    
 </head>
 
 <body>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Americas_on_the_globe_%28red%29.svg/600px-Americas_on_the_globe_%28red%29.svg.png" alt="Mapa de América"/>
-    <div id="contenedor">
-    </div>
-     <div>hola mundo</div>
+
+    <div id="map"></div>
+    <div id="historia"></div>
+
+    <script src="./config.js"></script>
+    <script src="/script.js"></script>
+    
 </body>
+
 </html>

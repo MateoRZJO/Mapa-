@@ -1,6 +1,5 @@
 // Ayudita tomada de: https://github.com/russellsamora/scrollama/blob/main/src/scroll.js
 const imagenes = [
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Americas_on_the_globe_%28red%29.svg/600px-Americas_on_the_globe_%28red%29.svg.png",
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO9yYc1wAzVEshfuJYkjOkNoI6seoZOEpzrw&s",
   "https://m.media-amazon.com/images/I/91Zi3y-GRDL.jpg",
   "https://static.wikia.nocookie.net/teniaqueserlawikidelchavo/images/3/3b/Intro_Los_Supergenios_de_la_Mesa_Cuadrada_%281970%29.png/revision/latest/scale-to-width-down/1200?cb=20241212032407&path-prefix=es",
@@ -17,138 +16,229 @@ const imagenes = [
   "https://www.premiosgoya.com/wp-content/uploads/2016/01/Whisky.jpg",
   "https://i.pinimg.com/736x/aa/4b/b2/aa4bb272ea5fb3cda6bba4ffe7a68b49.jpg",
   ];
-const titulos = [
-  "Canada",
-  "Estados Unidos",
-  "México",
-  "Cento América",
-  "Caribe",,
-  "Colombia",
-  "Venezuela",
-  "Brasil",
-  "Perú",
-  "Ecuador",
-  "Chile",
-  "Bolivia",
-  "Paragüay",
-  "Urugüay",
-  "Argentina",
-];
-const textos = [
-	`Abel Makkonen Tesfaye es un cantante canadiense de orígenes etíopes el cual comenzó su carrera musical en 2009 a loos 19 años de forma anonima en YouTube. 
-	Su música explora el escapismo, así como el romance o la melancolia, inspirado usualmente de sus propias experiencias personales. 
-	Su estilo es variado, caracterizandose por hacer una fusión de generos como el Disco, R&B, Pop, New waveo el Rhythm.`, 
-	
-	`Pulp Fiction`,
+        let initLoad = true;
+        let tiposDeCapa = {
+            'fill': ['fill-opacity'],
+            'line': ['line-opacity'],
+            'circle': ['circle-opacity', 'circle-stroke-opacity'],
+            'symbol': ['icon-opacity', 'text-opacity'],
+            'raster': ['raster-opacity'],
+            'fill-extrusion': ['fill-extrusion-opacity'],
+            'heatmap': ['heatmap-opacity']
+        }
 
-	`Los supergenios de la Mesa Cudrada fue una serie de comedia situacional, en la cual los 5 personaje principales leían las cartas de los televidentes y las contestaban de 
-	forma humorística, llevando usualmente a mostarar algun sketch.
-	Esta obra fue de las primeras del futuramente famoso Roberto Gómez Bolaños, la cual le dejo empezar a hacerse un lugar en la televisión`
+        let alineaciones = {
+            'left': 'lefty',
+            'center': 'centered',
+            'right': 'righty',
+            'full': 'fully'
+        }
 
-	`El Popol Vuh es una recopilación de narraciones míticas, legendarias e históricas de el pueblo K’iche’, siendo así un libro sagrado en la cultura maya. 
-	El libro conserva gran parte de la sabiduría y de las tradiciones mayas en aspectos tales como religión, astrología, o mitología, lo cual le ha otorgado gran valor, tanto 
-	en un punto de vista histórico como espiritual. 
-	La versión bilingüe actual es un trabajo que conserva los escritos originales de un autor indigena anonimo.`, 
+        function obtenerTipoDePinturaDeCapa(capa) {
+            let tipoDeCapa = map.getLayer(capa).type;
+            return tiposDeCapa[tipoDeCapa];
+        }
 
-	`Bob Marley fue un musico y exponente mas conocido, así ncomo rpresentante del reggae.`, 
+        function setLayerOpacity(capa) {
+            let propiedadesDePintura = obtenerTipoDePinturaDeCapa(capa.layer);
+            propiedadesDePintura.forEach(function (prop) {
+                let opciones = {};
+                if (capa.duration) {
+                    let propiedadTransicion = prop + "-transition";
+                    opciones = { "duration": capa.duration };
+                    map.setPaintProperty(capa.layer, propiedadTransicion, opciones);
+                }
+                map.setPaintProperty(capa.layer, prop, capa.opacity, opciones);
+            });
+        }
 
-	`El man es Germán es una serie humorística que sigue las situaciones diarias de su protagonista punketo (aficionado al punk) Germán Quintero junto a su familia y amigos, 
-	dando un vistazo de aspectos estereotípicos de los colombianos promedio como el rebusque o la solidaridad`,
+        let historia = document.getElementById('historia');
+        let caracteristicas = document.createElement('div');
+        caracteristicas.setAttribute('id', 'features');
 
-	`Canaima`,
+        let header = document.createElement('div');
 
-	`Cidade de Deus`,
+        if (config.titulo) {
+            let textoTitulo = document.createElement('h1');
+            textoTitulo.innerText = config.titulo;
+            header.appendChild(textoTitulo);
+        }
 
-	`Wyñaypacha`,
+        if (config.subtitulo) {
+            let textoSubtitulo = document.createElement('h2');
+            textoSubtitulo.innerText = config.subtitulo;
+            header.appendChild(textoSubtitulo);
+        }
 
-	`Despelote`,
+        if (config.autor) {
+            let textoAutor = document.createElement('p');
+            textoAutor.innerText = config.autor;
+            header.appendChild(textoAutor);
+        }
 
-	`31 minutos es una serie de televisión chilena, la cual parodia a los noticieros, especialmente a 60 minutos. La serie posee soterradas referencias a la realidad social de 
-	Chile`,
+        if (header.innerText.length > 0) {
+            header.classList.add(config.tema);
+            header.setAttribute('id', 'header');
+            historia.appendChild(header);
+        }
 
-	`Los deshabitados es una novela escrita y publicada por Marcelo Quiroga Santa Cruz, de hecho fue la única novela que fue publicada cuando todavía estaba vivo así como su 
-	única novela terminada. Fue galardonada por la Fundación William Faulkner como la mejor novela iberoamericana, siendo así la única obra boliviana poseedora de tal premio. 
-	Adicionalmente dicha fundación la describe como “la mejor obra hispanoamericana desde la segunda guerra mundial”.`,
+        // Configurar cada capítulo
+        config.capitulos.forEach((record, idx) => {
+            let contenedor = document.createElement('div');
+            let capitulo = document.createElement('div');
 
-	`Hamaca paraguaya es una película ambientada en el 14 de julio de 1935, al final de la guerra del chaco`,
+            if (record.titulo) {
+                let titulo = document.createElement('h3');
+                titulo.innerText = record.titulo;
+                capitulo.appendChild(titulo);
+            }
 
-	`Whisky`,
+            if (record.imagen) {
+                let imagen = new Image();
+                imagen.src = record.imagen;
+                capitulo.appendChild(imagen);
+            }
 
-	`Mafalda fue creada por Quino (Joaquín Salvador Lavada Tejón) en 1962 como método de publicidad para la compañía de electrodomésticos Siam Di Tella, al final las las 
-	historietas de Quino no fueron aprobadas y publicadas, por lo cual la primera aparición de Mafalda sería hasta 1964 en el semanario Primera Plana. 
-	Mafalda habla sobre temas sociales de varias índoles, todo desde la perspectiva de una niña muy inteligente y con un perspicaz sentido del humor que genera de forma rápida 
-	y directa una crítica a lo sociedad y una reflexión al espectador. 
-	Mafalda es no solo la historieta más exitosa y famosa de Argentina, sino de cualquier país hispano, siendo todo un icono y referente en su país de origen, así como famosa 
-	en todo el mundo, ya que Mafalda no depende de ser una niña clase media de Argentina de los años 60 para poder conectar con ella, sino que por el contrario todos podemos 
-	comprender de lo que habla, su postura y disfrutar de leerla.`,
-];
-const música = [
-	"https://www.youtube.com/watch?v=NZXb_N4mCL0",
-	"https://www.youtube.com/watch?v=klbRQ4JbIzY",
-	"https://www.youtube.com/watch?v=UlCd7ixbrSY",
-	"https://www.youtube.com/watch?v=XdqwbgjI_nw",
-	"https://www.youtube.com/watch?v=1ti2YCFgCoI",
-	"https://www.youtube.com/watch?v=X5sdX-XEN-s",
-	"https://www.youtube.com/watch?v=gxlB1B9emDc&list=PLDMAQIFJPbIvoKbH0-qpRoGRpMiRO2GQb&index=1",
-	"https://www.youtube.com/watch?v=zjIauceG3gE&list=PLw8WPBct97eUQTxSMb9Rm6KB6Fy8ENTup&index=1",
-	"https://www.youtube.com/watch?v=3gAqZjiAb3A",
-	"https://www.youtube.com/watch?v=347npLytra4",
-	"https://www.youtube.com/watch?v=qBLvwdf8uRw",
-	"https://www.youtube.com/watch?v=4gp_e7Z-To4",
-	"https://www.youtube.com/watch?v=Ic5NlxAvuSU",
-	"https://www.youtube.com/watch?v=RlJAlla0y9E",
-	"https://www.youtube.com/watch?v=puMt8BaH7d8",
-];
-let scrollYPrevio;
-let scrollYActual;
-let comparacionScrollY;
-let direccion;
+            if (record.descripcion) {
+                let historia = document.createElement('p');
+                historia.innerHTML = record.descripcion;
+                capitulo.appendChild(historia);
+            }
 
-const texto = document.createElement('div');
-texto.id = "texto";
-texto.classList.add('textoDer');
+            contenedor.setAttribute('id', record.id);
+            contenedor.classList.add('step');
+            if (idx === 0) {
+                contenedor.classList.add('active');
+            }
 
-const alturaVentana  = window.innerHeight;
-const paso = alturaVentana / textos.length - 1;
+            capitulo.classList.add(config.tema);
+            contenedor.appendChild(capitulo);
+            contenedor.classList.add(alineaciones[record.alineacion] || 'centered');
+            if (record.oculto) {
+                contenedor.classList.add('hidden');
+            }
+            caracteristicas.appendChild(contenedor);
+        });
 
-function onScroll(container) {
-const contenedor = document.getElementById("contenedor");
-document.body.appendChild(texto);
+        historia.appendChild(caracteristicas);
 
-	const scrollTop = container ? container.scrollTop : window.pageYOffset;
+        let footer = document.createElement('div');
 
-	if (scrollYActual === scrollTop) return;
+        if (config.footer) {
+            let textoFooter = document.createElement('p');
+            textoFooter.innerHTML = config.footer;
+            footer.appendChild(textoFooter);
+        }
 
-	scrollYPrevio = scrollYActual;
-	scrollYActual = scrollTop;
-	if (scrollYActual > comparacionScrollY) direccion = "down";
-	else if (scrollYActual < comparacionScrollY) direccion = "up";
-	comparacionScrollY = scrollYActual;
+        if (footer.innerText.length > 0) {
+            footer.classList.add(config.tema);
+            footer.setAttribute('id', 'footer');
+            historia.appendChild(footer);
+        }
 
- // console.log(scrollYActual);
+        mapboxgl.accessToken = config.tokenDeAcceso;
 
-  if(scrollYActual) {
-    if(textos[Math.floor(scrollYActual/paso)]) {
-  texto.innerText = textos[Math.floor(scrollYActual/paso)];
-  }
- // console.log(alturaVentana-scrollYActual);
-} 
-}
+        let map = new mapboxgl.Map({
+            container: 'map',
+            style: config.style,
+            center: config.capitulos[0].ubicacion.center,
+            zoom: config.capitulos[0].ubicacion.zoom,
+            bearing: config.capitulos[0].ubicacion.bearing,
+            pitch: config.capitulos[0].ubicacion.inclinacion,
+            interactive: false,
+            projection: config.projection
+        });
 
-function setupScroll(container) {
-	scrollYPrevio = 0;
-	scrollYActual = 0;
-	comparacionScrollY = 0;
-	document.addEventListener("scroll", () => onScroll(container));
-}
+        // Crea un minimapa si la opción está habilitada en config.js
+        if (config.inset) {
+            map.addControl(
+                new GlobeMinimap({ ...config.insetOptions }),
+                config.insetPosition
+            );
+        }
 
-// Agregar los textos al contenedor al cargar la página
-window.addEventListener('DOMContentLoaded', () => {
-  const contenedor = document.getElementById("contenedor");
-  textos.forEach(textoItem => {
-    const div = document.createElement("div");
-    div.textContent = textoItem;
-    contenedor.appendChild(div);
-  });
-  setupScroll(document.body);
-});
+        if (config.mostrarMarcadores) {
+            let marker = new mapboxgl.Marker({ color: config.markerColor });
+            marker.setLngLat(config.capitulos[0].ubicacion.center).addTo(map);
+        }
+
+        // instanciar el scrollama
+        let scroller = scrollama();
+
+
+        map.on("load", function () {
+            if (config.usarTerreno3d) {
+                map.addSource('mapbox-dem', {
+                    'type': 'raster-dem',
+                    'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+                    'tileSize': 512,
+                    'maxzoom': 14
+                });
+                // add the DEM source as a terrain layer with exaggerated height
+                map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+
+                // add a sky layer that will show when the map is highly pitched
+                map.addLayer({
+                    'id': 'sky',
+                    'type': 'sky',
+                    'paint': {
+                        'sky-type': 'atmosphere',
+                        'sky-atmosphere-sun': [0.0, 0.0],
+                        'sky-atmosphere-sun-intensity': 15
+                    }
+                });
+            };
+
+            // setup the instance, pass callback functions
+            scroller
+                .setup({
+                    step: '.step',
+                    offset: 0.5,
+                    progress: true
+                })
+                .onStepEnter(async response => {
+                    let capituloActual = config.capitulos.findIndex(chap => chap.id === response.element.id);
+                    let capitulo = config.capitulos[capituloActual];
+
+                    response.element.classList.add('active');
+                    map[capitulo.mapAnimation || 'flyTo'](capitulo.ubicacion);
+
+                    if (config.mostrarMarcadores) {
+                        marker.setLngLat(capitulo.ubicacion.center);
+                    }
+                    if (capitulo.onChapterEnter.length > 0) {
+                        capitulo.onChapterEnter.forEach(setLayerOpacity);
+                    }
+                    if (capitulo.callback) {
+                        window[capitulo.callback]();
+                    }
+                    if (capitulo.rotarAnimacion) {
+                        map.once('moveend', () => {
+                            const numeroRotacion = map.getBearing();
+                            map.rotateTo(numeroRotacion + 180, {
+                                duration: 30000, easing: function (t) {
+                                    return t;
+                                }
+                            });
+                        });
+                    }
+                    if (config.auto) {
+                        let capituloSiguiente = (capituloActual + 1) % config.capitulos.length;
+                        map.once('moveend', () => {
+                            document.querySelectorAll('[data-scrollama-index="' + capituloSiguiente.toString() + '"]')[0].scrollIntoView();
+                        });
+                    }
+                })
+                .onStepExit(response => {
+                    let capitulo = config.capitulos.find(chap => chap.id === response.element.id);
+                    response.element.classList.remove('active');
+                    if (capitulo.onChapterExit.length > 0) {
+                        capitulo.onChapterExit.forEach(setLayerOpacity);
+                    }
+                });
+
+
+            if (config.auto) {
+                document.querySelectorAll('[data-scrollama-index="0"]')[0].scrollIntoView();
+            }
+        });
