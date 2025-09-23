@@ -1,21 +1,4 @@
 // Ayudita tomada de: https://github.com/russellsamora/scrollama/blob/main/src/scroll.js
-const imagenes = [
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO9yYc1wAzVEshfuJYkjOkNoI6seoZOEpzrw&s",
-  "https://m.media-amazon.com/images/I/91Zi3y-GRDL.jpg",
-  "https://static.wikia.nocookie.net/teniaqueserlawikidelchavo/images/3/3b/Intro_Los_Supergenios_de_la_Mesa_Cuadrada_%281970%29.png/revision/latest/scale-to-width-down/1200?cb=20241212032407&path-prefix=es",
-  "https://www.libreriacasatomada.com/imagenes/9788416/978841677543.GIF",
-  "https://images.pagina12.com.ar/styles/focal_content_1200x1050/public/media/articles/81838/bob-marley-pelicula-animada_0.jpg?h=10d202d3&itok=qb26ZpsU",
-  "https://unity-img.tbxapis.com/v0/images/801ca66694329da3ba697f38c94bf0a1/content/6790412273fec95dc8e6dbb1/b40592ab49026d0b8d83cb7e261238bd/img.jpg",
-  "https://libreriatemis.com/wp-content/uploads/2020/09/18-044-0023.jpg",
-  "https://play-lh.googleusercontent.com/hzB49wRFYtA-T5EvxgtrOLMp5SILwl49nyiOLEpNVtH6plGWK4TUGeDrkqs4wpPGPS3dhf0FKKHtAlKKPYwu",
-  "https://www.lavanguardia.com/peliculas-series/images/movie/poster/2018/4/w1280/pENZra8G99ifTCjxXzWAOExzY43.jpg",
-  "https://i0.wp.com/lavidaesunvideojuego.com/wp-content/uploads/2023/10/despelote-entrevista.jpg?resize=1400%2C788&ssl=1",
-  "https://static.wikia.nocookie.net/doblajesperdidos/images/7/70/31Minutos_Poster.jpg/revision/latest?cb=20210122011607&path-prefix=es",
-  "https://pictures.abebooks.com/inventory/30981602534.jpg", 
-  "https://pics.filmaffinity.com/La_hamaca_paraguaya-154213852-mmed.jpg",
-  "https://www.premiosgoya.com/wp-content/uploads/2016/01/Whisky.jpg",
-  "https://i.pinimg.com/736x/aa/4b/b2/aa4bb272ea5fb3cda6bba4ffe7a68b49.jpg",
-  ];
         let initLoad = true;
         let tiposDeCapa = {
             'fill': ['fill-opacity'],
