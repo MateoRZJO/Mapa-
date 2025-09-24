@@ -7,7 +7,7 @@ body {
         a,
         a:hover,
         a:visited {
-            color: #0071bc;
+            color: #ff0000;
         }
 
         #map {
@@ -54,7 +54,7 @@ body {
         }
 
         .centered {
-            width: 50vw;
+            width: 30vw;
             margin: 0 auto;
         }
 
@@ -81,6 +81,7 @@ body {
         .dark {
             color: #fafafa;
             background-color: #246aec;
+
         }
 
         .step {
