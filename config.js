@@ -341,7 +341,7 @@ var config = {
             imagen: './assets/Whisky.jpg',
             descripcion: 'Whisky es una pelicula la cual mezcla drama con comedia, mostrandonos así, desde un código entre lo absurdo y la melancolía, entre lo cotidiano y lo fabulesco, un retrato sutil del cómo la torpeza y las pequeñas miserias de los 3 personajes prinncipales, tan distintos entre sí, se van evidenciando mientras intentan disimular resentimientos y asperezas. Una historia contada a través de detalles pequeños y trivialidades.',
             ubicacion: {
-                center: [-54.736,-32.585], // Coordenadas del segundo lugar
+                center: [-54.736,-32.585], // Coordenadas del segundo lugar de la pagina
                 zoom: 6.70,
                 inclinacion: 60,
                 bearing: 0.00,
